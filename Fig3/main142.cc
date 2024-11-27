@@ -30,13 +30,13 @@
 
 // Jet and hadron pT thresholds.
 // Will only show particles with pT > pTmin and |y| < yMax.
-double pTmin_jet = 25;
+double pTmin_jet = 80;
 double pTmin_hadron = 1;
 double yMax = 4;
 
 // Amount of pileup. Average number of inelastic pp collisions per event
 // (=bunch-crossing). Set to zero to turn off pileup.
-double mu = 60;
+double mu = 200;
 
 // Style format. Colours used by various drawn markers.
 int colHS = kBlack, colPos = kRed, colNeg = kBlue;
@@ -146,7 +146,7 @@ int main() {
   int NyBins = 400/2, NphiBins = 314/2;
   double yMax = 4, phiMax = TMath::Pi();
   auto pTflow = new TH2D("",
-    ";Rapidity #it{y};Azimuth #it{#phi};Jet #it{p}_{T} [GeV]",
+    ";Pseudorapidity #it{#eta};Azimuthal Angle #it{#phi};Jet #it{p}_{T} [GeV]",
     NyBins, -yMax, yMax, NphiBins, -phiMax, phiMax);
   pTflow->GetYaxis()->SetTitleOffset(0.8);
   pTflow->GetZaxis()->SetTitleOffset(1.1);
@@ -216,10 +216,10 @@ int main() {
     double DR1 = event.RRapPhi(VH[0].daughter1(), VH[0].daughter2());
     double DR2 = event.RRapPhi(VH[1].daughter1(), VH[1].daughter2());
     // Central system.
-    if ( std::abs(pVH.rap())>0.5 || std::abs(VH[0].phi())>2.5 ||
-      std::abs(VH[1].phi())>2.5 ) continue;
+    //if ( std::abs(pVH.rap())>0.5 || std::abs(VH[0].phi())>2.5 ||
+    //  std::abs(VH[1].phi())>2.5 ) continue;
     // One contained, one resolved.
-    if ( (DR1<1.0 && DR2<1.0) || (DR1>1.0 && DR2>1.0) ) continue;
+    //if ( (DR1<1.0 && DR2<1.0) || (DR1>1.0 && DR2>1.0) ) continue;
 
     // Add in ghost particles on the grid defined by the pTflow histogram.
     fastjet::PseudoJet ghost;
